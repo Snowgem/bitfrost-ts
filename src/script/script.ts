@@ -58,7 +58,7 @@ export class Script {
       return Script.fromBuffer(from.toBuffer());
     } else if (_.isString(from)) {
       return Script.fromString(from);
-    } else if (_.isObject(from) && _.isArray(from.chunks)) {
+    } else if (_.isObject(from) && _.isArray((from as Script).chunks)) {
       this.set(from);
     }
   }

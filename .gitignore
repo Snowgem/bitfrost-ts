@@ -15,7 +15,7 @@ bower_components
 report
 .DS_Store
 
-
+ts_build
 bitcore.js
 bitcore.min.js
 bitcore.js.sig

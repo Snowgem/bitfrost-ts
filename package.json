@@ -73,8 +73,7 @@
     "brfs": "^1.2.0",
     "chai": "^1.10.0",
     "gulp": "^3.8.10",
-    "sinon": "^1.13.0",
-    "typescript": "^3.1.3"
+    "sinon": "^1.13.0"
   },
   "directories": {},
   "dist": {
@@ -135,7 +134,8 @@
     "build": "gulp",
     "coverage": "gulp coverage",
     "lint": "gulp lint",
-    "test": "mocha"
+    "test": "mocha",
+    "compile": "npm run clean && node ./node_modules/.bin/tsc"
   },
   "version": "1.0.3"
 }

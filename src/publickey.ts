@@ -362,7 +362,7 @@ export class PublicKey {
      * @param {String|Network=} network - Which network should the address be for
      * @returns {Address} An address generated from the public key
      */
-    public toAddress = function (network) {
+    public toAddress(network?: Network | string) {
         var Address = require('./address');
         return Address.fromPublicKey(this, network || this.network);
     };
