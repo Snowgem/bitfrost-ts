@@ -30,11 +30,11 @@ export declare class HDPublicKey {
     xpubkey: Buffer;
     constructor(arg: HDPublicKey.DataType);
     isValidPath: (arg: any) => boolean;
-    derive: (arg: any, hardened: any) => any;
+    derive(arg: string | number, hardened?: boolean): any;
     deriveChild: (arg: any, hardened: any) => any;
-    _deriveWithNumber: (index: any, hardened: any) => any;
+    _deriveWithNumber(index: any, hardened?: boolean): any;
     _deriveFromString: (path: any) => any;
-    static isValidSerialized: (data: any, network: any) => boolean;
+    static isValidSerialized(data: any, network?: Network | string): boolean;
     static getSerializedError: (data: any, network?: any) => any;
     static _validateNetwork: (data: any, networkArg: any) => BitcoreError;
     _buildFromPrivate: (arg: any) => any;

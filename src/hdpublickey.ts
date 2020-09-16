@@ -134,7 +134,7 @@ export class HDPublicKey {
      *
      * @param {string|number} arg
      */
-    public derive = function (arg, hardened) {
+    public derive(arg: string | number, hardened = false) {
         return this.deriveChild(arg, hardened);
     };
     /**
@@ -173,8 +173,8 @@ export class HDPublicKey {
             throw new BitcoreError(hdErrors.InvalidDerivationArgument, arg);
         }
     };
-    public _deriveWithNumber = function (index, hardened) {
-        if (index >= this.Hardened || hardened) {
+    public _deriveWithNumber(index, hardened = false) {
+        if (index >= HDPublicKey.Hardened || hardened) {
             throw new BitcoreError(hdErrors.InvalidIndexCantDeriveHardened);
         }
         if (index < 0) {
@@ -225,7 +225,7 @@ export class HDPublicKey {
      *     network provided matches the network serialized.
      * @return {boolean}
      */
-    public static isValidSerialized = function (data, network) {
+    public static isValidSerialized(data, network?: Network | string) {
         return _.isNull(this.getSerializedError(data, network));
     };
     /**

@@ -209,7 +209,7 @@ export class HDPrivateKey {
      * @param {string|number} arg
      * @param {boolean?} hardened
      */
-    public derive = function (arg, hardened) {
+    public derive(arg: string | number, hardened = false) {
         return this.deriveNonCompliantChild(arg, hardened);
     };
     /**
@@ -241,7 +241,7 @@ export class HDPrivateKey {
      * @param {string|number} arg
      * @param {boolean?} hardened
      */
-    public deriveChild = function (arg, hardened) {
+    public deriveChild(arg: string | number, hardened = false) {
         if (_.isNumber(arg)) {
             return this._deriveWithNumber(arg, hardened);
         }
@@ -285,7 +285,7 @@ export class HDPrivateKey {
               );
         }
     };
-    public _deriveWithNumber = function (index, hardened, nonCompliant) {
+    public _deriveWithNumber(index, hardened, nonCompliant = false) {
         /* jshint maxstatements: 20 */
         /* jshint maxcomplexity: 10 */
         if (!HDPrivateKey.isValidPath(index, hardened)) {
@@ -334,7 +334,7 @@ export class HDPrivateKey {
         });
         return derived;
     };
-    public _deriveFromString = function (path, nonCompliant) {
+    public _deriveFromString(path, nonCompliant = false) {
         if (!HDPrivateKey.isValidPath(path)) {
             throw new BitcoreError(hdErrors.InvalidPath, path);
         }

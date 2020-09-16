@@ -39,20 +39,6 @@ const BITS_TO_BYTES = 1 / 8;
 const MAXIMUM_ENTROPY_BITS = 512;
 class HDPrivateKey {
     constructor(arg) {
-        this.derive = function (arg, hardened) {
-            return this.deriveNonCompliantChild(arg, hardened);
-        };
-        this.deriveChild = function (arg, hardened) {
-            if (_.isNumber(arg)) {
-                return this._deriveWithNumber(arg, hardened);
-            }
-            else if (_.isString(arg)) {
-                return this._deriveFromString(arg);
-            }
-            else {
-                throw new errors_1.BitcoreError(spec_1.ERROR_TYPES.HDPrivateKey.errors.InvalidDerivationArgument, arg);
-            }
-        };
         this.deriveNonCompliantChild = function (arg, hardened) {
             if (_.isNumber(arg)) {
                 return this._deriveWithNumber(arg, hardened, true);
@@ -63,59 +49,6 @@ class HDPrivateKey {
             else {
                 throw new errors_1.BitcoreError(spec_1.ERROR_TYPES.HDPrivateKey.errors.InvalidDerivationArgument, arg);
             }
-        };
-        this._deriveWithNumber = function (index, hardened, nonCompliant) {
-            if (!HDPrivateKey.isValidPath(index, hardened)) {
-                throw new errors_1.BitcoreError(hdErrors.InvalidPath, index);
-            }
-            hardened = index >= HDPrivateKey.Hardened ? true : hardened;
-            if (index < HDPrivateKey.Hardened && hardened === true) {
-                index += HDPrivateKey.Hardened;
-            }
-            var indexBuffer = util_1.BufferUtil.integerAsBuffer(index);
-            var data;
-            if (hardened && nonCompliant) {
-                var nonZeroPadded = this.privateKey.bn.toBuffer();
-                data = util_1.BufferUtil.concat([new buffer_1.Buffer([0]), nonZeroPadded, indexBuffer]);
-            }
-            else if (hardened) {
-                var privateKeyBuffer = this.privateKey.bn.toBuffer({ size: 32 });
-                assert_1.default(privateKeyBuffer.length === 32, 'length of private key buffer is expected to be 32 bytes');
-                data = util_1.BufferUtil.concat([new buffer_1.Buffer([0]), privateKeyBuffer, indexBuffer]);
-            }
-            else {
-                data = util_1.BufferUtil.concat([this.publicKey.toBuffer(), indexBuffer]);
-            }
-            var hash = crypto_1.Hash.sha512hmac(data, this._buffers.chainCode);
-            var leftPart = crypto_1.BitcoreBN.fromBuffer(hash.slice(0, 32), {
-                size: 32
-            });
-            var chainCode = hash.slice(32, 64);
-            var privateKey = new crypto_1.BitcoreBN(leftPart.add(this.privateKey.toBigNumber()).umod(crypto_1.Point.getN())).toBuffer({
-                size: 32
-            });
-            if (!_1.PrivateKey.isValid(privateKey)) {
-                return this._deriveWithNumber(index + 1, null, nonCompliant);
-            }
-            var derived = new HDPrivateKey({
-                network: this.network,
-                depth: this.depth + 1,
-                parentFingerPrint: this.fingerPrint,
-                childIndex: index,
-                chainCode: chainCode,
-                privateKey: privateKey
-            });
-            return derived;
-        };
-        this._deriveFromString = function (path, nonCompliant) {
-            if (!HDPrivateKey.isValidPath(path)) {
-                throw new errors_1.BitcoreError(hdErrors.InvalidPath, path);
-            }
-            var indexes = HDPrivateKey._getDerivationIndexes(path);
-            var derived = indexes.reduce(function (prev, index) {
-                return prev._deriveWithNumber(index, null, nonCompliant);
-            }, this);
-            return derived;
         };
         this._buildFromJSON = function (arg) {
             return this._buildFromObject(JSON.parse(arg));
@@ -260,6 +193,77 @@ class HDPrivateKey {
             return arg >= 0 && arg < HDPrivateKey.MaxIndex;
         }
         return false;
+    }
+    ;
+    derive(arg, hardened = false) {
+        return this.deriveNonCompliantChild(arg, hardened);
+    }
+    ;
+    deriveChild(arg, hardened = false) {
+        if (_.isNumber(arg)) {
+            return this._deriveWithNumber(arg, hardened);
+        }
+        else if (_.isString(arg)) {
+            return this._deriveFromString(arg);
+        }
+        else {
+            throw new errors_1.BitcoreError(spec_1.ERROR_TYPES.HDPrivateKey.errors.InvalidDerivationArgument, arg);
+        }
+    }
+    ;
+    _deriveWithNumber(index, hardened, nonCompliant = false) {
+        if (!HDPrivateKey.isValidPath(index, hardened)) {
+            throw new errors_1.BitcoreError(hdErrors.InvalidPath, index);
+        }
+        hardened = index >= HDPrivateKey.Hardened ? true : hardened;
+        if (index < HDPrivateKey.Hardened && hardened === true) {
+            index += HDPrivateKey.Hardened;
+        }
+        var indexBuffer = util_1.BufferUtil.integerAsBuffer(index);
+        var data;
+        if (hardened && nonCompliant) {
+            var nonZeroPadded = this.privateKey.bn.toBuffer();
+            data = util_1.BufferUtil.concat([new buffer_1.Buffer([0]), nonZeroPadded, indexBuffer]);
+        }
+        else if (hardened) {
+            var privateKeyBuffer = this.privateKey.bn.toBuffer({ size: 32 });
+            assert_1.default(privateKeyBuffer.length === 32, 'length of private key buffer is expected to be 32 bytes');
+            data = util_1.BufferUtil.concat([new buffer_1.Buffer([0]), privateKeyBuffer, indexBuffer]);
+        }
+        else {
+            data = util_1.BufferUtil.concat([this.publicKey.toBuffer(), indexBuffer]);
+        }
+        var hash = crypto_1.Hash.sha512hmac(data, this._buffers.chainCode);
+        var leftPart = crypto_1.BitcoreBN.fromBuffer(hash.slice(0, 32), {
+            size: 32
+        });
+        var chainCode = hash.slice(32, 64);
+        var privateKey = new crypto_1.BitcoreBN(leftPart.add(this.privateKey.toBigNumber()).umod(crypto_1.Point.getN())).toBuffer({
+            size: 32
+        });
+        if (!_1.PrivateKey.isValid(privateKey)) {
+            return this._deriveWithNumber(index + 1, null, nonCompliant);
+        }
+        var derived = new HDPrivateKey({
+            network: this.network,
+            depth: this.depth + 1,
+            parentFingerPrint: this.fingerPrint,
+            childIndex: index,
+            chainCode: chainCode,
+            privateKey: privateKey
+        });
+        return derived;
+    }
+    ;
+    _deriveFromString(path, nonCompliant = false) {
+        if (!HDPrivateKey.isValidPath(path)) {
+            throw new errors_1.BitcoreError(hdErrors.InvalidPath, path);
+        }
+        var indexes = HDPrivateKey._getDerivationIndexes(path);
+        var derived = indexes.reduce(function (prev, index) {
+            return prev._deriveWithNumber(index, null, nonCompliant);
+        }, this);
+        return derived;
     }
     ;
     static isValidSerialized(data, network) {

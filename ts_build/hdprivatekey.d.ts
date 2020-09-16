@@ -62,11 +62,11 @@ export declare class HDPrivateKey {
     constructor(arg?: HDPrivateKey.DataType);
     static isValidPath(arg: any, hardened?: boolean): any;
     static _getDerivationIndexes: (path: any) => any;
-    derive: (arg: any, hardened: any) => any;
-    deriveChild: (arg: any, hardened: any) => any;
+    derive(arg: string | number, hardened?: boolean): any;
+    deriveChild(arg: string | number, hardened?: boolean): any;
     deriveNonCompliantChild: (arg: any, hardened: any) => any;
-    _deriveWithNumber: (index: any, hardened: any, nonCompliant: any) => any;
-    _deriveFromString: (path: any, nonCompliant: any) => any;
+    _deriveWithNumber(index: any, hardened: any, nonCompliant?: boolean): any;
+    _deriveFromString(path: any, nonCompliant?: boolean): any;
     static isValidSerialized(data: HDPrivateKey.DataType, network?: Network | string): boolean;
     static getSerializedError(data: HDPrivateKey.DataType, network?: Network | string): BitcoreError;
     static _validateNetwork: (data: any, networkArg: any) => BitcoreError;

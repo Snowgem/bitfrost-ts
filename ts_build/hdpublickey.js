@@ -51,9 +51,6 @@ class HDPublicKey {
             }
             return false;
         };
-        this.derive = function (arg, hardened) {
-            return this.deriveChild(arg, hardened);
-        };
         this.deriveChild = function (arg, hardened) {
             if (_.isNumber(arg)) {
                 return this._deriveWithNumber(arg, hardened);
@@ -64,35 +61,6 @@ class HDPublicKey {
             else {
                 throw new errors_1.BitcoreError(hdErrors.InvalidDerivationArgument, arg);
             }
-        };
-        this._deriveWithNumber = function (index, hardened) {
-            if (index >= this.Hardened || hardened) {
-                throw new errors_1.BitcoreError(hdErrors.InvalidIndexCantDeriveHardened);
-            }
-            if (index < 0) {
-                throw new errors_1.BitcoreError(hdErrors.InvalidPath, index);
-            }
-            const indexBuffer = buffer_1.BufferUtil.integerAsBuffer(index);
-            const data = buffer_1.BufferUtil.concat([this.publicKey.toBuffer(), indexBuffer]);
-            const hash = hash_1.Hash.sha512hmac(data, this._buffers.chainCode);
-            const leftPart = bn_1.BitcoreBN.fromBuffer(hash.slice(0, 32), { size: 32 });
-            const chainCode = hash.slice(32, 64);
-            let publicKey;
-            try {
-                publicKey = publickey_1.PublicKey.fromPoint(point_1.Point.getG().mul(leftPart).add(this.publicKey.point));
-            }
-            catch (e) {
-                return this._deriveWithNumber(index + 1);
-            }
-            var derived = new HDPublicKey({
-                network: this.network,
-                depth: this.depth + 1,
-                parentFingerPrint: this.fingerPrint,
-                childIndex: index,
-                chainCode: chainCode,
-                publicKey: publicKey
-            });
-            return derived;
         };
         this._deriveFromString = function (path) {
             if (_.includes(path, "'")) {
@@ -242,11 +210,46 @@ class HDPublicKey {
             throw new errors_1.BitcoreError(hdErrors.MustSupplyArgument);
         }
     }
+    derive(arg, hardened = false) {
+        return this.deriveChild(arg, hardened);
+    }
+    ;
+    _deriveWithNumber(index, hardened = false) {
+        if (index >= HDPublicKey.Hardened || hardened) {
+            throw new errors_1.BitcoreError(hdErrors.InvalidIndexCantDeriveHardened);
+        }
+        if (index < 0) {
+            throw new errors_1.BitcoreError(hdErrors.InvalidPath, index);
+        }
+        const indexBuffer = buffer_1.BufferUtil.integerAsBuffer(index);
+        const data = buffer_1.BufferUtil.concat([this.publicKey.toBuffer(), indexBuffer]);
+        const hash = hash_1.Hash.sha512hmac(data, this._buffers.chainCode);
+        const leftPart = bn_1.BitcoreBN.fromBuffer(hash.slice(0, 32), { size: 32 });
+        const chainCode = hash.slice(32, 64);
+        let publicKey;
+        try {
+            publicKey = publickey_1.PublicKey.fromPoint(point_1.Point.getG().mul(leftPart).add(this.publicKey.point));
+        }
+        catch (e) {
+            return this._deriveWithNumber(index + 1);
+        }
+        var derived = new HDPublicKey({
+            network: this.network,
+            depth: this.depth + 1,
+            parentFingerPrint: this.fingerPrint,
+            childIndex: index,
+            chainCode: chainCode,
+            publicKey: publicKey
+        });
+        return derived;
+    }
+    ;
+    static isValidSerialized(data, network) {
+        return _.isNull(this.getSerializedError(data, network));
+    }
+    ;
 }
 exports.HDPublicKey = HDPublicKey;
-HDPublicKey.isValidSerialized = function (data, network) {
-    return _.isNull(this.getSerializedError(data, network));
-};
 HDPublicKey.getSerializedError = function (data, network = undefined) {
     if (!(_.isString(data) || buffer_1.BufferUtil.isBuffer(data))) {
         return new errors_1.BitcoreError(hdErrors.UnrecognizedArgument, 'expected buffer or string');
