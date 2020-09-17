@@ -28,7 +28,6 @@ const _ = __importStar(require("lodash"));
 const bn_1 = require("./crypto/bn");
 const point_1 = require("./crypto/point");
 const hash_1 = require("./crypto/hash");
-const js_1 = require("./util/js");
 const networks_1 = require("./networks");
 class PublicKey {
     constructor(data, extra) {
@@ -113,12 +112,6 @@ class PublicKey {
         extra = extra || {};
         var info = this._classifyArgs(data, extra);
         info.point.validate();
-        js_1.JSUtil.defineImmutable(this, {
-            point: info.point,
-            compressed: info.compressed,
-            network: info.network || networks_1.Network.defaultNetwork
-        });
-        return this;
     }
     ;
     toAddress(network) {

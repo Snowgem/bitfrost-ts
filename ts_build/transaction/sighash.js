@@ -31,7 +31,7 @@ const _1 = require(".");
 const encoding_1 = require("../encoding");
 const crypto_1 = require("../crypto");
 const signature_1 = require("../crypto/signature");
-const blake2b_1 = require("blake2b");
+const blake2bts_1 = require("blake2bts");
 var SIGHASH_SINGLE_BUG = '0000000000000000000000000000000000000000000000000000000000000001';
 var BITS_64_ON = 'ffffffffffffffff';
 var ZERO = buffer_1.Buffer.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex');
@@ -44,7 +44,7 @@ var sighashSapling = function sighash(transaction, sighashType, inputNumber, sub
     var input = transaction.inputs[inputNumber];
     function getBlake2bHash(bufferToHash, personalization) {
         var out = buffer_1.Buffer.allocUnsafe(32);
-        return blake2b_1.blake2b(out.length, null, null, buffer_1.Buffer.from(personalization)).update(bufferToHash).digest(out);
+        return blake2bts_1.blake2b(out.length, null, null, buffer_1.Buffer.from(personalization)).update(bufferToHash).digest(out);
     }
     function GetPrevoutHash(tx) {
         var writer = new encoding_1.BufferWriter();

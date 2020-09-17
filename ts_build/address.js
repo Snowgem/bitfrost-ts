@@ -101,12 +101,6 @@ class Address {
         var info = this._classifyArguments(data, network, type);
         info.network = info.network || _1.Network.get(network) || _1.Network.defaultNetwork;
         info.type = info.type || type || Address.PayToPublicKeyHash;
-        util_1.JSUtil.defineImmutable(this, {
-            hashBuffer: info.hashBuffer,
-            network: info.network,
-            type: info.type
-        });
-        return this;
     }
     static _transformBuffer(buffer, network, type) {
         if (!(buffer instanceof Buffer) && !(buffer instanceof Uint8Array)) {
