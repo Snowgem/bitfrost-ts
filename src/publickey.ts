@@ -58,12 +58,6 @@ export class PublicKey {
         var info = this._classifyArgs(data, extra);
         // validation
         info.point.validate();
-        JSUtil.defineImmutable(this, {
-            point: info.point,
-            compressed: info.compressed,
-            network: info.network || Network.defaultNetwork
-        });
-        return this;
     }
     ;
     /**

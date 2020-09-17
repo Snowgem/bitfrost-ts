@@ -97,12 +97,6 @@ export class Address {
         // set defaults if not set
         info.network = info.network || Network.get(network) || Network.defaultNetwork;
         info.type = info.type || type || Address.PayToPublicKeyHash;
-        JSUtil.defineImmutable(this, {
-            hashBuffer: info.hashBuffer,
-            network: info.network,
-            type: info.type
-        });
-        return this;
     }
     /**
      * Internal function used to split different kinds of arguments of the constructor
