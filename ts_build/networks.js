@@ -22,7 +22,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Network = void 0;
 const _ = __importStar(require("lodash"));
 const buffer_1 = require("./util/buffer");
-const js_1 = require("./util/js");
 const networks = [];
 const networkMaps = {};
 class Network {
@@ -65,8 +64,7 @@ class Network {
         return networkMaps[arg.toString()];
     }
     static addNetwork(data) {
-        var network = new Network();
-        js_1.JSUtil.defineImmutable(network, {
+        const network = {
             name: data.name,
             alias: data.alias,
             pubkeyhash: data.pubkeyhash,
@@ -74,30 +72,20 @@ class Network {
             scripthash: data.scripthash,
             xpubkey: data.xpubkey,
             xprivkey: data.xprivkey,
-            zaddr: data.zaddr,
-            zkey: data.zkey
-        });
-        if (data.networkMagic) {
-            js_1.JSUtil.defineImmutable(network, {
-                networkMagic: buffer_1.BufferUtil.integerAsBuffer(data.networkMagic)
-            });
-        }
-        if (data.port) {
-            js_1.JSUtil.defineImmutable(network, {
-                port: data.port
-            });
-        }
-        if (data.dnsSeeds) {
-            js_1.JSUtil.defineImmutable(network, {
-                dnsSeeds: data.dnsSeeds
-            });
-        }
-        _.each(network, function (value) {
-            if (!_.isUndefined(value) && !_.isObject(value)) {
+            networkMagic: data.networkMagic instanceof Buffer
+                ? data.networkMagic
+                : buffer_1.BufferUtil.integerAsBuffer(data.networkMagic),
+            dnsSeeds: data.dnsSeeds,
+            port: data.port
+        };
+        _.each(network, value => {
+            if (!_.isUndefined(value) &&
+                !_.isObject(value) &&
+                typeof value === 'string') {
                 networkMaps[value] = network;
             }
         });
-        networks.push(network);
+        networks.push(new Network(network));
         return network;
     }
     static removeNetwork(network) {
@@ -145,5 +133,12 @@ Network.addNetwork({
     xprivkey: 0x04350001,
     zaddr: 0x0001,
     zkey: 0x0001,
+    networkMagic: 0x24c80001,
+    port: 26113,
+    dnsSeeds: [
+        'dnsseed1.snowgem.org',
+        'dnsseed2.snowgem.org',
+        'dnsseed3.snowgem.org',
+    ]
 });
 //# sourceMappingURL=networks.js.map

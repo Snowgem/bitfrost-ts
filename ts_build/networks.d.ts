@@ -30,6 +30,17 @@ export declare class Network {
     constructor(obj?: Network.NetworkObj);
     toString: () => any;
     static get(arg: string | number | Network, keys?: Array<string> | string): any;
-    static addNetwork(data: any): Network;
+    static addNetwork(data: any): {
+        name: any;
+        alias: any;
+        pubkeyhash: any;
+        privatekey: any;
+        scripthash: any;
+        xpubkey: any;
+        xprivkey: any;
+        networkMagic: any;
+        dnsSeeds: any;
+        port: any;
+    };
     static removeNetwork(network: any): void;
 }

@@ -50,7 +50,7 @@ exports.BitFrostLib = {
     Unit: unit_1.Unit,
     util: util_1.Util,
     URI: uri_1.URI,
-    version: 'v' + require('./package.json').version,
+    version: 'v' + require('./../package.json').version,
     versionGuard(version) {
         if (version !== undefined) {
             const message = 'More than one instance of bitcore-lib found. ' +

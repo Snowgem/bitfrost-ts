@@ -37,7 +37,7 @@ export const BitFrostLib = {
   Unit,
   util: Util,
   URI,
-  version: 'v' + require('./package.json').version,
+  version: 'v' + require('./../package.json').version,
   versionGuard(version) {
     if (version !== undefined) {
       const message =

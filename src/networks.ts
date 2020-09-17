@@ -81,7 +81,7 @@ export class Network {
     public static get(
         arg: string | number | Network,
         keys?: Array<string> | string
-      ) {
+    ) {
         if (~networks.indexOf(arg)) {
             return arg;
         }
@@ -121,8 +121,7 @@ export class Network {
      * @return Network
      */
     public static addNetwork(data) {
-        var network = new Network();
-        JSUtil.defineImmutable(network, {
+        const network = {
             name: data.name,
             alias: data.alias,
             pubkeyhash: data.pubkeyhash,
@@ -130,31 +129,27 @@ export class Network {
             scripthash: data.scripthash,
             xpubkey: data.xpubkey,
             xprivkey: data.xprivkey,
-            zaddr: data.zaddr,
-            zkey: data.zkey
-        });
-        if (data.networkMagic) {
-            JSUtil.defineImmutable(network, {
-                networkMagic: BufferUtil.integerAsBuffer(data.networkMagic)
-            });
-        }
-        if (data.port) {
-            JSUtil.defineImmutable(network, {
-                port: data.port
-            });
-        }
-        if (data.dnsSeeds) {
-            JSUtil.defineImmutable(network, {
-                dnsSeeds: data.dnsSeeds
-            });
-        }
-        _.each(network, function (value) {
-            if (!_.isUndefined(value) && !_.isObject(value)) {
-                networkMaps[value] = network;
+            networkMagic:
+              data.networkMagic instanceof Buffer
+                ? data.networkMagic
+                : BufferUtil.integerAsBuffer(data.networkMagic),
+            dnsSeeds: data.dnsSeeds,
+            port: data.port
+          };
+      
+          _.each(network, value => {
+            if (
+              !_.isUndefined(value) &&
+              !_.isObject(value) &&
+              typeof value === 'string'
+            ) {
+              networkMaps[value] = network;
             }
-        });
-        networks.push(network);
-        return network;
+          });
+      
+          networks.push(new Network(network));
+      
+          return network;
     }
     /**
      * @function
@@ -223,4 +218,11 @@ Network.addNetwork({
     xprivkey: 0x04350001,
     zaddr: 0x0001,
     zkey: 0x0001,
+    networkMagic: 0x24c80001,
+    port: 26113,
+    dnsSeeds: [
+        'dnsseed1.snowgem.org',
+        'dnsseed2.snowgem.org',
+        'dnsseed3.snowgem.org',
+    ]
 });
