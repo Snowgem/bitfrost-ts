@@ -57,7 +57,7 @@
     }
   ],
   "dependencies": {
-    "blake2b": "github:snowgem/blake2b",
+    "blake2bts": "github:snowgem/blake2b",
     "bn.js": "^5.1.3",
     "bs58": "^4.0.1",
     "buffer-compare": "=1.1.1",

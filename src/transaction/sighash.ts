@@ -7,7 +7,7 @@ import { BufferWriter, BufferReader } from '../encoding';
 import { Hash, ECDSA, BitcoreBN } from '../crypto';
 import { Signature } from '../crypto/signature';
 
-import { blake2b } from 'blake2b'
+import { blake2b} from 'blake2bts'
 var SIGHASH_SINGLE_BUG = '0000000000000000000000000000000000000000000000000000000000000001';
 var BITS_64_ON = 'ffffffffffffffff';
 var ZERO = Buffer.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex');
