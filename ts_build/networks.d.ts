@@ -28,7 +28,7 @@ export declare class Network {
     networkMagic: Buffer;
     port: number;
     dnsSeeds: Array<string>;
-    static defaultNetwork: any;
+    static defaultNetwork: Network;
     static livenet: Network;
     static testnet: Network;
     constructor(obj?: Network.NetworkObj);

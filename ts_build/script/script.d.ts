@@ -107,23 +107,15 @@ export declare class Script {
     static empty(): Script;
     toScriptHashOut(): Script;
     static fromAddress(address: Address | string): Script;
-    getAddressInfo(): false | Address.AddressObj | {
-        hashBuffer: Buffer;
-        type: "scripthash";
-        network: any;
-    } | {
-        hashBuffer: Buffer;
-        type: "pubkeyhash";
-        network: any;
-    };
+    getAddressInfo(): false | Address.AddressObj;
     _getOutputAddressInfo(): false | {
         hashBuffer: Buffer;
         type: "scripthash";
-        network: any;
+        network: Network;
     } | {
         hashBuffer: Buffer;
         type: "pubkeyhash";
-        network: any;
+        network: Network;
     };
     _getInputAddressInfo(): false | Address.AddressObj;
     toAddress(network?: Network): Address;

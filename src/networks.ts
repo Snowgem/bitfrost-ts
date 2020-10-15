@@ -41,7 +41,7 @@ export class Network {
     public networkMagic: Buffer;
     public port: number;
     public dnsSeeds: Array<string>;
-    public static defaultNetwork = Network.get('livenet');
+    public static defaultNetwork: Network;
     public static livenet: Network;
     public static testnet: Network;
 
@@ -95,7 +95,7 @@ export class Network {
         });
 
         Network.livenet =  Network.get('livenet');
-        
+        Network.defaultNetwork = Network.get('livenet')
         Network.addNetwork({
             name: 'testnet',
             alias: 'regtest',

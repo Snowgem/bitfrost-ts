@@ -63,6 +63,7 @@ class Network {
             ]
         });
         Network.livenet = Network.get('livenet');
+        Network.defaultNetwork = Network.get('livenet');
         Network.addNetwork({
             name: 'testnet',
             alias: 'regtest',
@@ -144,5 +145,4 @@ class Network {
     }
 }
 exports.Network = Network;
-Network.defaultNetwork = Network.get('livenet');
 //# sourceMappingURL=networks.js.map

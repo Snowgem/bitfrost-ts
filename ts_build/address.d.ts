@@ -19,7 +19,7 @@ export declare class Address {
     _classifyArguments: (data: any, network: any, type: any) => any;
     static _transformHash: (hash: Buffer | Uint8Array, type?: "pubkeyhash") => {
         hashBuffer: Uint8Array | Buffer;
-        network: any;
+        network: Network;
         type: "pubkeyhash";
     };
     static _transformObject: (data: any) => {
@@ -45,7 +45,7 @@ export declare class Address {
     static _transformPublicKey: (pubkey: any) => {
         hashBuffer: Buffer;
         type: "pubkeyhash";
-        network: any;
+        network: Network;
     };
     static _transformScript: (script: any, network: any) => any;
     static createMultisig: (publicKeys: any, threshold: any, network: any) => Address;
