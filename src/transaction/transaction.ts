@@ -546,13 +546,13 @@ export class Transaction {
             var script = new Script(input.output.script);
             var txin;
             if (script.isPublicKeyHashOut()) {
-                txin = new Input.PublicKeyHash(input);
+                txin = new PublicKeyHashInput(input);
             }
             else if (script.isScriptHashOut() && input.publicKeys && input.threshold) {
-                txin = new Input.MultiSigScriptHash(input, input.publicKeys, input.threshold, input.signatures);
+                txin = new MultiSigScriptHashInput(input, input.publicKeys, input.threshold, input.signatures);
             }
             else if (script.isPublicKeyOut()) {
-                txin = new Input.PublicKey(input);
+                txin = new PublicKeyInput(input);
             }
             else {
                 throw new BitcoreError(

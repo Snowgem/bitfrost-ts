@@ -25,7 +25,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Input = void 0;
 const _ = __importStar(require("lodash"));
 const preconditions_1 = __importDefault(require("../../util/preconditions"));
-const publickeyhash_1 = require("./publickeyhash");
 const spec_1 = require("../../errors/spec");
 const errors_1 = require("../../errors");
 const encoding_1 = require("../../encoding");
@@ -34,19 +33,16 @@ const util_1 = require("../../util");
 const script_1 = require("../../script");
 const sighash_1 = require("../sighash");
 const output_1 = require("../output");
-const publickey_1 = require("../../publickey");
-const multisigscripthash_1 = require("./multisigscripthash");
-const multisig_1 = require("./multisig");
 const MAXINT = 0xffffffff;
 const DEFAULT_RBF_SEQNUMBER = MAXINT - 2;
 const DEFAULT_SEQNUMBER = MAXINT;
 const DEFAULT_LOCKTIME_SEQNUMBER = MAXINT - 1;
 class Input {
-    constructor(input, pubkeys, threshold, signatures, nestedWitness) {
+    constructor(input) {
         this.signatures = [];
         this.toJSON = this.toObject;
         if (!(this instanceof Input)) {
-            return new Input(input, pubkeys, threshold, signatures, nestedWitness);
+            return new Input(input);
         }
         if (input) {
             return this._fromObject(input);
@@ -178,8 +174,4 @@ Input.MAXINT = MAXINT;
 Input.DEFAULT_SEQNUMBER = DEFAULT_SEQNUMBER;
 Input.DEFAULT_LOCKTIME_SEQNUMBER = DEFAULT_LOCKTIME_SEQNUMBER;
 Input.DEFAULT_RBF_SEQNUMBER = DEFAULT_RBF_SEQNUMBER;
-Input.PublicKey = publickey_1.PublicKey;
-Input.PublicKeyHash = publickeyhash_1.PublicKeyHashInput;
-Input.MultiSigScriptHash = multisigscripthash_1.MultiSigScriptHashInput;
-Input.MultiSig = multisig_1.MultiSigInput;
 //# sourceMappingURL=input.js.map

@@ -412,13 +412,13 @@ class Transaction {
             var script = new script_1.Script(input.output.script);
             var txin;
             if (script.isPublicKeyHashOut()) {
-                txin = new input_1.Input.PublicKeyHash(input);
+                txin = new _1.PublicKeyHashInput(input);
             }
             else if (script.isScriptHashOut() && input.publicKeys && input.threshold) {
-                txin = new input_1.Input.MultiSigScriptHash(input, input.publicKeys, input.threshold, input.signatures);
+                txin = new _1.MultiSigScriptHashInput(input, input.publicKeys, input.threshold, input.signatures);
             }
             else if (script.isPublicKeyOut()) {
-                txin = new input_1.Input.PublicKey(input);
+                txin = new _1.PublicKeyInput(input);
             }
             else {
                 throw new errors_1.BitcoreError(errors_1.ERROR_TYPES.Transaction.errors.Input.errors.UnsupportedScript, input.output.script);

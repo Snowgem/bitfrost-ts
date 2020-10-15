@@ -8,6 +8,8 @@ export declare namespace Network {
         scripthash: number;
         xpubkey: number;
         xprivkey: number;
+        zaddr: string;
+        zkey: string;
         networkMagic: Buffer | number;
         port: number;
         dnsSeeds?: Array<string>;
@@ -21,6 +23,8 @@ export declare class Network {
     scripthash: number;
     xpubkey: number;
     xprivkey: number;
+    zaddr: string;
+    zkey: string;
     networkMagic: Buffer;
     port: number;
     dnsSeeds: Array<string>;
@@ -38,6 +42,8 @@ export declare class Network {
         scripthash: any;
         xpubkey: any;
         xprivkey: any;
+        zaddr: any;
+        zkey: any;
         networkMagic: any;
         dnsSeeds: any;
         port: any;

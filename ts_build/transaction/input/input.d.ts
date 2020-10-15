@@ -1,13 +1,8 @@
 /// <reference types="node" />
 import BN from 'bn.js';
-import { PublicKeyHashInput } from './publickeyhash';
 import { BufferWriter } from '../../encoding';
 import { Script } from '../../script';
 import { Output } from '../output';
-import { PublicKey } from '../../publickey';
-import { Signature } from '../../crypto/signature';
-import { MultiSigScriptHashInput } from './multisigscripthash';
-import { MultiSigInput } from './multisig';
 export declare namespace InputTypes {
     interface InputObj {
         prevTxId?: string | Buffer;
@@ -27,10 +22,6 @@ export declare class Input {
     static DEFAULT_SEQNUMBER: number;
     static DEFAULT_LOCKTIME_SEQNUMBER: number;
     static DEFAULT_RBF_SEQNUMBER: number;
-    static PublicKey: typeof PublicKey;
-    static PublicKeyHash: typeof PublicKeyHashInput;
-    static MultiSigScriptHash: typeof MultiSigScriptHashInput;
-    static MultiSig: typeof MultiSigInput;
     _scriptBuffer: Buffer;
     _script: Script;
     _satoshis: number;
@@ -41,7 +32,7 @@ export declare class Input {
     outputIndex: number;
     sequenceNumber: number;
     signatures: any[];
-    constructor(input?: InputTypes.InputObj, pubkeys?: Array<PublicKey>, threshold?: number, signatures?: Array<Signature>, nestedWitness?: boolean);
+    constructor(input?: InputTypes.InputObj);
     get script(): Script;
     static fromObject(obj: any): Input;
     _fromObject(params: any): this;

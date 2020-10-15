@@ -29,7 +29,7 @@ class Network {
         this.toString = function toString() {
             return this.name;
         };
-        const { name, alias, pubkeyhash, privatekey, scripthash, xpubkey, xprivkey, networkMagic, port, dnsSeeds } = obj;
+        const { name, alias, pubkeyhash, privatekey, scripthash, xpubkey, xprivkey, networkMagic, port, dnsSeeds, zaddr, zkey } = obj;
         Object.assign(this, {
             name,
             alias,
@@ -38,6 +38,8 @@ class Network {
             scripthash,
             xpubkey,
             xprivkey,
+            zaddr,
+            zkey,
             networkMagic,
             port,
             dnsSeeds
@@ -72,6 +74,8 @@ class Network {
             scripthash: data.scripthash,
             xpubkey: data.xpubkey,
             xprivkey: data.xprivkey,
+            zaddr: data.zaddr,
+            zkey: data.zkey,
             networkMagic: data.networkMagic instanceof Buffer
                 ? data.networkMagic
                 : buffer_1.BufferUtil.integerAsBuffer(data.networkMagic),
