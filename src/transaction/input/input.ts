@@ -10,10 +10,10 @@ import { JSUtil, BufferUtil } from '../../util';
 import { Script } from '../../script';
 import { sighash, Sighash } from '../sighash';
 import { Output } from '../output';
-import { Transaction } from '../transaction';
-import { TransactionSignature } from '../signature';
-import { PublicKey } from '../../publickey';
-import { Signature } from '../../crypto/signature';
+// import { Transaction } from '../transaction';
+// import { TransactionSignature } from '../signature';
+// import { PublicKey } from '../../publickey';
+// import { Signature } from '../../crypto/signature';
 // import { MultiSigScriptHashInput } from './multisigscripthash';
 // import { MultiSigInput } from './multisig';
 // import { PublicKeyInput } from './publickey';
@@ -43,7 +43,7 @@ export class Input {
     public static DEFAULT_SEQNUMBER = DEFAULT_SEQNUMBER;
     public static DEFAULT_LOCKTIME_SEQNUMBER = DEFAULT_LOCKTIME_SEQNUMBER;
     public static DEFAULT_RBF_SEQNUMBER = DEFAULT_RBF_SEQNUMBER;
-    public static PublicKey = PublicKey;
+    // public static PublicKey = PublicKey;
     // public static PublicKeyHash = PublicKeyHashInput;
     // public static MultiSigScriptHash = MultiSigScriptHashInput;
     // public static MultiSig = MultiSigInput;
@@ -60,14 +60,10 @@ export class Input {
     public signatures = [];
 
     constructor(
-        input?: InputTypes.InputObj,
-        pubkeys?: Array<PublicKey>,
-        threshold?: number,
-        signatures?: Array<Signature>,
-        nestedWitness?: boolean) {
+        input?: InputTypes.InputObj) {
 
         if (!(this instanceof Input)) {
-            return new Input(input, pubkeys, threshold, signatures, nestedWitness);
+            return new Input(input);
         }
         if (input) {
             return this._fromObject(input);
