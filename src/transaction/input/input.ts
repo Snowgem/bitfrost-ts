@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import BN from 'bn.js';
 import $ from '../../util/preconditions';
-import { PublicKeyHashInput } from './publickeyhash';
+// import { PublicKeyHashInput } from './publickeyhash';
 import { ERROR_TYPES } from '../../errors/spec';
 import { BitcoreError } from '../../errors';
 import { BufferWriter } from '../../encoding';
@@ -14,9 +14,9 @@ import { Transaction } from '../transaction';
 import { TransactionSignature } from '../signature';
 import { PublicKey } from '../../publickey';
 import { Signature } from '../../crypto/signature';
-import { MultiSigScriptHashInput } from './multisigscripthash';
-import { MultiSigInput } from './multisig';
-import { PublicKeyInput } from './publickey';
+// import { MultiSigScriptHashInput } from './multisigscripthash';
+// import { MultiSigInput } from './multisig';
+// import { PublicKeyInput } from './publickey';
 
 const MAXINT = 0xffffffff; // Math.pow(2, 32) - 1;
 const DEFAULT_RBF_SEQNUMBER = MAXINT - 2;
@@ -44,9 +44,9 @@ export class Input {
     public static DEFAULT_LOCKTIME_SEQNUMBER = DEFAULT_LOCKTIME_SEQNUMBER;
     public static DEFAULT_RBF_SEQNUMBER = DEFAULT_RBF_SEQNUMBER;
     public static PublicKey = PublicKey;
-    public static PublicKeyHash = PublicKeyHashInput;
-    public static MultiSigScriptHash = MultiSigScriptHashInput;
-    public static MultiSig = MultiSigInput;
+    // public static PublicKeyHash = PublicKeyHashInput;
+    // public static MultiSigScriptHash = MultiSigScriptHashInput;
+    // public static MultiSig = MultiSigInput;
 
     public _scriptBuffer: Buffer;
     public _script: Script;
