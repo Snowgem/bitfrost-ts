@@ -44,45 +44,6 @@ class Network {
             port,
             dnsSeeds
         });
-        Network.addNetwork({
-            name: 'livenet',
-            alias: 'mainnet',
-            pubkeyhash: 0x0001,
-            privatekey: 0x80,
-            scripthash: 0x0001,
-            xpubkey: 0x04880001,
-            xprivkey: 0x04880001,
-            zaddr: 0x169a,
-            zkey: 0xab36,
-            networkMagic: 0x24c80001,
-            port: 16113,
-            dnsSeeds: [
-                'dnsseed1.snowgem.org',
-                'dnsseed2.snowgem.org',
-                'dnsseed3.snowgem.org',
-            ]
-        });
-        Network.livenet = Network.get('livenet');
-        Network.defaultNetwork = Network.get('livenet');
-        Network.addNetwork({
-            name: 'testnet',
-            alias: 'regtest',
-            pubkeyhash: 0x0001,
-            privatekey: 0xef,
-            scripthash: 0x0001,
-            xpubkey: 0x04350001,
-            xprivkey: 0x04350001,
-            zaddr: 0x0001,
-            zkey: 0x0001,
-            networkMagic: 0x24c80001,
-            port: 26113,
-            dnsSeeds: [
-                'dnsseed1.snowgem.org',
-                'dnsseed2.snowgem.org',
-                'dnsseed3.snowgem.org',
-            ]
-        });
-        Network.testnet = Network.get('testnet');
     }
     static get(arg, keys) {
         if (~networks.indexOf(arg)) {
@@ -145,4 +106,43 @@ class Network {
     }
 }
 exports.Network = Network;
+Network.addNetwork({
+    name: 'livenet',
+    alias: 'mainnet',
+    pubkeyhash: 0x0001,
+    privatekey: 0x80,
+    scripthash: 0x0001,
+    xpubkey: 0x04880001,
+    xprivkey: 0x04880001,
+    zaddr: 0x169a,
+    zkey: 0xab36,
+    networkMagic: 0x24c80001,
+    port: 16113,
+    dnsSeeds: [
+        'dnsseed1.snowgem.org',
+        'dnsseed2.snowgem.org',
+        'dnsseed3.snowgem.org',
+    ]
+});
+Network.livenet = Network.get('livenet');
+Network.defaultNetwork = Network.get('livenet');
+Network.addNetwork({
+    name: 'testnet',
+    alias: 'regtest',
+    pubkeyhash: 0x0001,
+    privatekey: 0xef,
+    scripthash: 0x0001,
+    xpubkey: 0x04350001,
+    xprivkey: 0x04350001,
+    zaddr: 0x0001,
+    zkey: 0x0001,
+    networkMagic: 0x24c80001,
+    port: 26113,
+    dnsSeeds: [
+        'dnsseed1.snowgem.org',
+        'dnsseed2.snowgem.org',
+        'dnsseed3.snowgem.org',
+    ]
+});
+Network.testnet = Network.get('testnet');
 //# sourceMappingURL=networks.js.map
