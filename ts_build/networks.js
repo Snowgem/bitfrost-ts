@@ -94,9 +94,7 @@ class Network {
             port: data.port
         };
         _.each(network, value => {
-            if (!_.isUndefined(value) &&
-                !_.isObject(value) &&
-                typeof value === 'string') {
+            if (!_.isUndefined(value) && !_.isObject(value)) {
                 networkMaps[value] = network;
             }
         });
