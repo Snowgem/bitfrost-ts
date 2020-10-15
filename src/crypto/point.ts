@@ -46,7 +46,7 @@ export class Point extends curveInstance.point {
   constructor(x, y, isRed = false) {
     super(x, y, isRed);
     try {
-      super.validate();
+      // super.validate();
       this.validate();
     } catch (e) {
       throw new Error('Invalid Point');

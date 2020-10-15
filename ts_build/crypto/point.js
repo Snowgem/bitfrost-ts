@@ -13,7 +13,6 @@ class Point extends curveInstance.point {
         this._getX = this.getX;
         this._getY = this.getY;
         try {
-            super.validate();
             this.validate();
         }
         catch (e) {
