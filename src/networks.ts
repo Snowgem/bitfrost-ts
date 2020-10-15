@@ -137,6 +137,8 @@ export class Network {
             scripthash: data.scripthash,
             xpubkey: data.xpubkey,
             xprivkey: data.xprivkey,
+            zaddr: data.zaddr,
+            zkey: data.zkey,
             networkMagic:
               data.networkMagic instanceof Buffer
                 ? data.networkMagic
