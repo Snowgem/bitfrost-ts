@@ -14,6 +14,8 @@ export namespace Network {
         scripthash: number;
         xpubkey: number;
         xprivkey: number;
+        zaddr: string;
+        zkey: string;
         networkMagic: Buffer | number;
         port: number;
         dnsSeeds?: Array<string>;
@@ -34,6 +36,8 @@ export class Network {
     public scripthash: number;
     public xpubkey: number;
     public xprivkey: number;
+    public zaddr: string;
+    public zkey: string;
     public networkMagic: Buffer;
     public port: number;
     public dnsSeeds: Array<string>;
@@ -52,7 +56,9 @@ export class Network {
             xprivkey,
             networkMagic,
             port,
-            dnsSeeds
+            dnsSeeds,
+            zaddr,
+            zkey
         } = obj;
         Object.assign(this, {
             name,
@@ -62,6 +68,8 @@ export class Network {
             scripthash,
             xpubkey,
             xprivkey,
+            zaddr,
+            zkey,
             networkMagic,
             port,
             dnsSeeds
