@@ -67,7 +67,7 @@ class Network {
             return undefined;
         }
         if (lodash_1.isString(arg) || lodash_1.isNumber(arg)) {
-            return networkMaps[arg];
+            return networkMaps[arg.toString()];
         }
         else if (lodash_1.isObject(arg)) {
             return networkMaps[arg.name];

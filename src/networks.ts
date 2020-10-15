@@ -111,7 +111,7 @@ export class Network {
             return undefined;
         }
         if (isString(arg) || isNumber(arg)) {
-            return networkMaps[arg];
+            return networkMaps[arg.toString()];
         }
         else if (isObject(arg)) {
             return networkMaps[arg.name];
