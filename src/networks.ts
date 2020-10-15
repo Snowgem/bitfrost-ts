@@ -1,6 +1,9 @@
 import * as _ from 'lodash';
 import { BufferUtil } from './util/buffer';
 import { JSUtil } from './util/js';
+import { isString, isNumber, isObject } from 'lodash';
+import { ERROR_TYPES } from './errors/spec';
+import { BitcoreError } from './errors';
 
 const networks = [];
 const networkMaps = {};
@@ -107,8 +110,18 @@ export class Network {
             }
             return undefined;
         }
-        let networkStr = arg.toString();
-        return networkMaps[networkStr];
+        if (isString(arg) || isNumber(arg)) {
+            return networkMaps[arg];
+        }
+        else if (isObject(arg)) {
+            return networkMaps[arg.name];
+        }
+        else {
+            throw new BitcoreError(
+                ERROR_TYPES.InvalidArgument,
+                arg
+            );
+        }
     }
     /**
      * @function
@@ -141,26 +154,26 @@ export class Network {
             zaddr: data.zaddr,
             zkey: data.zkey,
             networkMagic:
-              data.networkMagic instanceof Buffer
-                ? data.networkMagic
-                : BufferUtil.integerAsBuffer(data.networkMagic),
+                data.networkMagic instanceof Buffer
+                    ? data.networkMagic
+                    : BufferUtil.integerAsBuffer(data.networkMagic),
             dnsSeeds: data.dnsSeeds,
             port: data.port
-          };
-      
-          _.each(network, value => {
+        };
+
+        _.each(network, value => {
             if (
-              !_.isUndefined(value) &&
-              !_.isObject(value) &&
-              typeof value === 'string'
+                !_.isUndefined(value) &&
+                !_.isObject(value) &&
+                typeof value === 'string'
             ) {
-              networkMaps[value] = network;
+                networkMaps[value] = network;
             }
-          });
-      
-          networks.push(new Network(network));
-      
-          return network;
+        });
+
+        networks.push(new Network(network));
+
+        return network;
     }
     /**
      * @function
@@ -180,7 +193,7 @@ export class Network {
             }
         }
     }
-    
+
 }
 
 Network.addNetwork({
@@ -202,7 +215,7 @@ Network.addNetwork({
     ]
 });
 
-Network.livenet =  Network.get('livenet');
+Network.livenet = Network.get('livenet');
 Network.defaultNetwork = Network.get('livenet')
 Network.addNetwork({
     name: 'testnet',
@@ -223,4 +236,4 @@ Network.addNetwork({
     ]
 });
 
-Network.testnet =  Network.get('testnet');
+Network.testnet = Network.get('testnet');

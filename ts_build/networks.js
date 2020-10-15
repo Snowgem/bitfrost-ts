@@ -22,6 +22,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Network = void 0;
 const _ = __importStar(require("lodash"));
 const buffer_1 = require("./util/buffer");
+const lodash_1 = require("lodash");
+const spec_1 = require("./errors/spec");
+const errors_1 = require("./errors");
 const networks = [];
 const networkMaps = {};
 class Network {
@@ -63,8 +66,15 @@ class Network {
             }
             return undefined;
         }
-        let networkStr = arg.toString();
-        return networkMaps[networkStr];
+        if (lodash_1.isString(arg) || lodash_1.isNumber(arg)) {
+            return networkMaps[arg];
+        }
+        else if (lodash_1.isObject(arg)) {
+            return networkMaps[arg.name];
+        }
+        else {
+            throw new errors_1.BitcoreError(spec_1.ERROR_TYPES.InvalidArgument, arg);
+        }
     }
     static addNetwork(data) {
         const network = {
