@@ -102,7 +102,6 @@ export class PublicKey {
      * @private
      */
     public static _isPrivateKey = function (param) {
-        var PrivateKey = require('./privatekey');
         return param instanceof PrivateKey;
     };
     /**

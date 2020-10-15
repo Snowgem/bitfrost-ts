@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { Address, Network, PublicKey } from '.';
+import { Address, Network } from '.';
 import { BitcoreBN } from './crypto';
 declare namespace PrivateKey {
     interface PrivateKeyObj {
@@ -13,7 +13,6 @@ export declare class PrivateKey {
     compressed: boolean;
     network: Network;
     bn: BitcoreBN;
-    _pubkey: PublicKey;
     constructor(data?: PrivateKey.DataType, network?: Network | string);
     get publicKey(): any;
     _classifyArguments: (data: any, network: any) => Partial<PrivateKey.PrivateKeyObj>;

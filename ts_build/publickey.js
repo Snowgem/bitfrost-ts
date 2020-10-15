@@ -29,6 +29,7 @@ const bn_1 = require("./crypto/bn");
 const point_1 = require("./crypto/point");
 const hash_1 = require("./crypto/hash");
 const networks_1 = require("./networks");
+const privatekey_1 = require("./privatekey");
 class PublicKey {
     constructor(data, extra) {
         this._classifyArgs = function (data, extra) {
@@ -122,8 +123,7 @@ class PublicKey {
 }
 exports.PublicKey = PublicKey;
 PublicKey._isPrivateKey = function (param) {
-    var PrivateKey = require('./privatekey');
-    return param instanceof PrivateKey;
+    return param instanceof privatekey_1.PrivateKey;
 };
 PublicKey._isBuffer = function (param) {
     return (param instanceof Buffer) || (param instanceof Uint8Array);

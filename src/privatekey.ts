@@ -46,7 +46,6 @@ export class PrivateKey {
     public compressed: boolean;
     public network: Network;
     public bn: BitcoreBN;
-    public _pubkey: PublicKey;
 
     constructor(
         data?: PrivateKey.DataType,
