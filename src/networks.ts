@@ -107,7 +107,8 @@ export class Network {
             }
             return undefined;
         }
-        return networkMaps[arg.toString()];
+        let networkStr = arg.toString();
+        return networkMaps[networkStr];
     }
     /**
      * @function
