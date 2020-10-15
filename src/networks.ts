@@ -42,8 +42,8 @@ export class Network {
     public port: number;
     public dnsSeeds: Array<string>;
     public static defaultNetwork = Network.get('livenet');
-    public static livenet = Network.get('livenet');
-    public static testnet = Network.get('testnet');
+    public static livenet: Network;
+    public static testnet: Network;
 
     constructor(obj?: Network.NetworkObj) {
         const {
@@ -74,6 +74,48 @@ export class Network {
             port,
             dnsSeeds
         });
+
+        Network.addNetwork({
+            name: 'livenet',
+            alias: 'mainnet',
+            pubkeyhash: 0x0001,
+            privatekey: 0x80,
+            scripthash: 0x0001,
+            xpubkey: 0x04880001,
+            xprivkey: 0x04880001,
+            zaddr: 0x169a,
+            zkey: 0xab36,
+            networkMagic: 0x24c80001,
+            port: 16113,
+            dnsSeeds: [
+                'dnsseed1.snowgem.org',
+                'dnsseed2.snowgem.org',
+                'dnsseed3.snowgem.org',
+            ]
+        });
+
+        Network.livenet =  Network.get('livenet');
+        
+        Network.addNetwork({
+            name: 'testnet',
+            alias: 'regtest',
+            pubkeyhash: 0x0001,
+            privatekey: 0xef,
+            scripthash: 0x0001,
+            xpubkey: 0x04350001,
+            xprivkey: 0x04350001,
+            zaddr: 0x0001,
+            zkey: 0x0001,
+            networkMagic: 0x24c80001,
+            port: 26113,
+            dnsSeeds: [
+                'dnsseed1.snowgem.org',
+                'dnsseed2.snowgem.org',
+                'dnsseed3.snowgem.org',
+            ]
+        });
+
+        Network.testnet =  Network.get('testnet');
     }
     public toString = function toString() {
         return this.name;
@@ -179,6 +221,7 @@ export class Network {
             }
         }
     }
+    
 }
 // addNetwork({
 //   name: 'livenet',
@@ -199,40 +242,3 @@ export class Network {
 //   ]
 // });
 //just temp configuration
-Network.addNetwork({
-    name: 'livenet',
-    alias: 'mainnet',
-    pubkeyhash: 0x0001,
-    privatekey: 0x80,
-    scripthash: 0x0001,
-    xpubkey: 0x04880001,
-    xprivkey: 0x04880001,
-    zaddr: 0x169a,
-    zkey: 0xab36,
-    networkMagic: 0x24c80001,
-    port: 16113,
-    dnsSeeds: [
-        'dnsseed1.snowgem.org',
-        'dnsseed2.snowgem.org',
-        'dnsseed3.snowgem.org',
-    ]
-});
-
-Network.addNetwork({
-    name: 'testnet',
-    alias: 'regtest',
-    pubkeyhash: 0x0001,
-    privatekey: 0xef,
-    scripthash: 0x0001,
-    xpubkey: 0x04350001,
-    xprivkey: 0x04350001,
-    zaddr: 0x0001,
-    zkey: 0x0001,
-    networkMagic: 0x24c80001,
-    port: 26113,
-    dnsSeeds: [
-        'dnsseed1.snowgem.org',
-        'dnsseed2.snowgem.org',
-        'dnsseed3.snowgem.org',
-    ]
-});

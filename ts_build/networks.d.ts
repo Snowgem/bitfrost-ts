@@ -29,8 +29,8 @@ export declare class Network {
     port: number;
     dnsSeeds: Array<string>;
     static defaultNetwork: any;
-    static livenet: any;
-    static testnet: any;
+    static livenet: Network;
+    static testnet: Network;
     constructor(obj?: Network.NetworkObj);
     toString: () => any;
     static get(arg: string | number | Network, keys?: Array<string> | string): any;
