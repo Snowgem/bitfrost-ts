@@ -34,7 +34,7 @@ export declare class PrivateKey {
     static getValidationError: (data: any, network: any) => any;
     static isValid(data?: PrivateKey.DataType, network?: Network): boolean;
     toString: () => any;
-    toWIF: () => any;
+    toWIF: () => string;
     toBigNumber: () => any;
     toBuffer: () => any;
     toBufferNoPadding: () => any;

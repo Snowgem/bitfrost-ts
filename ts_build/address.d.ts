@@ -77,6 +77,6 @@ export declare class Address {
         type: any;
         network: any;
     };
-    toString: () => any;
+    toString: () => string;
     inspect: () => string;
 }

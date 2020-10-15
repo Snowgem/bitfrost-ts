@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Base58 = void 0;
 const _ = __importStar(require("lodash"));
-const bs58_1 = require("bs58");
+const bs58 = __importStar(require("bs58"));
 const buffer_1 = require("buffer");
 const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'.split('');
 class Base58 {
@@ -55,13 +55,13 @@ class Base58 {
         if (!buffer_1.Buffer.isBuffer(buf)) {
             throw new Error('Input should be a buffer');
         }
-        return bs58_1.bs58.encode(buf);
+        return bs58.encode(buf);
     }
     static decode(str) {
         if (typeof str !== 'string') {
             throw new Error('Input should be a string');
         }
-        return buffer_1.Buffer.from(bs58_1.bs58.decode(str));
+        return buffer_1.Buffer.from(bs58.decode(str));
     }
     fromBuffer(buf) {
         this.buf = buf;

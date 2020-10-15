@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { bs58 } from 'bs58';
+import * as bs58 from 'bs58' 
 import { Buffer } from 'buffer';
 
 const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'.split(

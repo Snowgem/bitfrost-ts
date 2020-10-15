@@ -11,9 +11,9 @@ export declare class Base58Check {
     static validChecksum(data: string | Buffer, checksum?: string | Buffer): boolean;
     static decode(s: any): Buffer;
     static checksum(buffer: any): Buffer;
-    static encode(buf: any): any;
+    static encode(buf: any): string;
     fromBuffer(buf: any): this;
     fromString(str: any): this;
     toBuffer(): Buffer;
-    toString(): any;
+    toString(): string;
 }
